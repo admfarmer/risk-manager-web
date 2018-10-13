@@ -1,0 +1,42 @@
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <a href="javascript://" class="nav-link">
+        <clr-icon shape="vm-bug"></clr-icon>
+        <span class="title">LeaveClient</span>
+      </a>
+    </div>
+    <!-- <div class="header-nav">
+      <a href="javascript://" class="nav-link nav-icon" clrVerticalNavLink routerLink="/apps/dashboard"
+        routerLinkActive="active">
+        <clr-icon shape="dashboard"></clr-icon>
+      </a>
+    </div> -->
+    <div class="header-actions">
+      <a href="javascript://" class="nav-link nav-icon" clrVerticalNavLink routerLink="/apps/setting" routerLinkActive="active">
+        <clr-icon shape="cog"></clr-icon>
+      </a>
+    </div>
+  </header>
+
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+
+    <clr-vertical-nav>
+      <a clrVerticalNavLink routerLink="/apps/dashboard" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="dashboard"></clr-icon>
+        หน้าหลัก
+      </a>
+      <a clrVerticalNavLink routerLink="/apps/leave" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="note"></clr-icon>
+        บันทึกข้อมูลวันลา
+      </a>
+      <a clrVerticalNavLink href="javascript://">
+        <clr-icon clrVerticalNavIcon shape="logout"></clr-icon>
+        ออกจากระบบ
+      </a>
+    </clr-vertical-nav>
+  </div>
+</div>

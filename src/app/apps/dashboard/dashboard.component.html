@@ -1,0 +1,41 @@
+<form class="clr-form">
+  <div class="clr-form-control">
+    <section class="title">
+      <h3 class="welcome">ข้อมูลเจ้าหน้าที่ โรงพยาบาลตาลสุม</h3>
+    </section>
+    <div class="clr-control-container clr-col-12">
+      <p></p>
+    </div>
+    <div class="clr-control-container clr-col-12">
+      <input type="text" id="basic" placeholder="Enter value here" class="clr-input"> :
+      <div class="btn-group btn-outline-primary btn-sm">
+        <button class="btn btn-success">ค้นหา</button>
+      </div>
+    </div>
+    <div class="clr-control-container clr-col-12">
+      <clr-datagrid>
+        <clr-dg-column>Name</clr-dg-column>
+        <clr-dg-column>ตำแหน่ง</clr-dg-column>
+        <clr-dg-column>วันที่บรรจุ</clr-dg-column>
+        <clr-dg-column>Tel</clr-dg-column>
+        <clr-dg-column>E-Mail</clr-dg-column>
+        <clr-dg-column> </clr-dg-column>
+        <clr-dg-row>
+          <clr-dg-cell>นายธวัชชัย แสงดือน</clr-dg-cell>
+          <clr-dg-cell>นักวิชาการคอมพิวเตอร์</clr-dg-cell>
+          <clr-dg-cell>01/02/2007</clr-dg-cell>
+          <clr-dg-cell>0885825467</clr-dg-cell>
+          <clr-dg-cell>thawatchai.s@tshpt.mail.go.th</clr-dg-cell>
+          <clr-dg-cell>
+            <div class="btn-group btn-outline-primary btn-sm">
+              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-danger">leave</button>
+            </div>
+          </clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>5 users</clr-dg-footer>
+      </clr-datagrid>
+    </div>
+  </div>
+</form>
