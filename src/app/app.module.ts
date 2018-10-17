@@ -11,6 +11,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppsModule } from './apps/apps.module';
 import { LoginModule } from './login/login.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DeniedComponent } from './denied/denied.component';
 import { environment } from "../environments/environment.prod";
 
 export function tokenGetter() {
@@ -19,7 +20,8 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DeniedComponent,
   ],
   imports: [
     BrowserModule,

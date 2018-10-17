@@ -13,9 +13,15 @@
       </a>
     </div> -->
     <div class="header-actions">
-      <a href="javascript://" class="nav-link nav-icon" clrVerticalNavLink routerLink="/apps/setting" routerLinkActive="active">
-        <clr-icon shape="cog"></clr-icon>
-      </a>
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{fullname}} |
+          <a href="javascript://" class="nav-link nav-icon" clrVerticalNavLink routerLink="/apps/setting"
+            routerLinkActive="active">
+            <clr-icon shape="cog"></clr-icon>
+          </a>
+        </button>
+      </clr-dropdown>
     </div>
   </header>
 
@@ -33,7 +39,7 @@
         <clr-icon clrVerticalNavIcon shape="note"></clr-icon>
         บันทึกข้อมูลวันลา
       </a>
-      <a clrVerticalNavLink href="javascript://">
+      <a clrVerticalNavLink href="javascript://" (click)="logout()">
         <clr-icon clrVerticalNavIcon shape="logout"></clr-icon>
         ออกจากระบบ
       </a>

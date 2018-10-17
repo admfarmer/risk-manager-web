@@ -28,23 +28,23 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // this.alertService.success();
-    this.getLeaces();
+    this.getLeaves();
   }
 
-  async getLeaces() {
+  async getLeaves() {
     try {
       this.openLoading = true;
       const rs: any = await this.leacesService.personStatus(this.idcard);
       if (rs.ok) {
         this.leaves = rs.rows;
-        console.log(this.leaves);
+        // console.log(this.leaves);
         this.openLoading = false;
       } else {
         this.openLoading = false;
         this.alertService.error(rs.error);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       this.openLoading = false;
       this.alertService.error(error);
     }

@@ -24,7 +24,7 @@
         <clr-dg-row *clrDgItems="let l of leaves">
           <clr-dg-cell>{{l.title}}{{l.name}} {{l.lastname}}</clr-dg-cell>
           <clr-dg-cell>{{l.idcard}}</clr-dg-cell>
-          <clr-dg-cell>{{l.workdate}}</clr-dg-cell>
+          <clr-dg-cell>{{l.workdate | date:'yyyy-MM-dd'}}</clr-dg-cell>
           <clr-dg-cell>{{l.tell}}</clr-dg-cell>
           <clr-dg-cell>{{l.email}}</clr-dg-cell>
           <clr-dg-cell>{{l.lasasom}}</clr-dg-cell>
