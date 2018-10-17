@@ -15,17 +15,19 @@
     <div class="clr-control-container clr-col-12">
       <clr-datagrid>
         <clr-dg-column>Name</clr-dg-column>
-        <clr-dg-column>ตำแหน่ง</clr-dg-column>
+        <clr-dg-column>Idcard</clr-dg-column>
         <clr-dg-column>วันที่บรรจุ</clr-dg-column>
         <clr-dg-column>Tel</clr-dg-column>
         <clr-dg-column>E-Mail</clr-dg-column>
+        <clr-dg-column>Leave</clr-dg-column>
         <clr-dg-column> </clr-dg-column>
-        <clr-dg-row>
-          <clr-dg-cell>นายธวัชชัย แสงดือน</clr-dg-cell>
-          <clr-dg-cell>นักวิชาการคอมพิวเตอร์</clr-dg-cell>
-          <clr-dg-cell>01/02/2007</clr-dg-cell>
-          <clr-dg-cell>0885825467</clr-dg-cell>
-          <clr-dg-cell>thawatchai.s@tshpt.mail.go.th</clr-dg-cell>
+        <clr-dg-row *clrDgItems="let l of leaves">
+          <clr-dg-cell>{{l.title}}{{l.name}} {{l.lastname}}</clr-dg-cell>
+          <clr-dg-cell>{{l.idcard}}</clr-dg-cell>
+          <clr-dg-cell>{{l.workdate}}</clr-dg-cell>
+          <clr-dg-cell>{{l.tell}}</clr-dg-cell>
+          <clr-dg-cell>{{l.email}}</clr-dg-cell>
+          <clr-dg-cell>{{l.lasasom}}</clr-dg-cell>
           <clr-dg-cell>
             <div class="btn-group btn-outline-primary btn-sm">
               <button class="btn btn-success">Edit</button>
@@ -33,8 +35,12 @@
             </div>
           </clr-dg-cell>
         </clr-dg-row>
-
-        <clr-dg-footer>5 users</clr-dg-footer>
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} users
+          </clr-dg-pagination>
+        </clr-dg-footer>
       </clr-datagrid>
     </div>
   </div>

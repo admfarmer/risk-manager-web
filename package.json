@@ -1,5 +1,5 @@
 {
-  "name": "refer-web",
+  "name": "leave-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -27,7 +27,9 @@
     "@webcomponents/custom-elements": "^1.0.0",
     "antd": "^3.10.1",
     "core-js": "^2.5.4",
-    "rxjs": "~6.2.0",
+    "operator": "^1.2.0",
+    "resolve": "^1.8.1",
+    "rxjs": "^6.3.3",
     "sweetalert2": "^6.6.8",
     "zone.js": "~0.8.26"
   },
