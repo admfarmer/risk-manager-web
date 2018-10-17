@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../../shared/alert.service';
-import { LeacesService } from '../../shared/leave.services'
+import { LeavesService } from '../../shared/leave.services'
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as moment from 'moment';
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   leaves: any;
 
   constructor(
-    private leacesService: LeacesService,
+    private leavesService: LeavesService,
     private alertService: AlertService
   ) {
     const token = sessionStorage.getItem('token');
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   async getLeaves() {
     try {
       this.openLoading = true;
-      const rs: any = await this.leacesService.personStatus(this.idcard);
+      const rs: any = await this.leavesService.personStatus(this.idcard);
       if (rs.ok) {
         this.leaves = rs.rows;
         // console.log(this.leaves);

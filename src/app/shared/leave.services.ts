@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 @Injectable()
-export class LeacesService {
+export class LeavesService {
 
     constructor(
         @Inject('API_URL') private apiUrl: string,

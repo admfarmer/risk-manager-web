@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +9,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppsModule } from './apps/apps.module';
 import { LoginModule } from './login/login.module';
+import { AppRoutingModule } from './app-routing.module';
+import { DirectivesModule } from './directives/directives.module';
+
 import { HttpClientModule } from '@angular/common/http';
 import { DeniedComponent } from './denied/denied.component';
 import { environment } from "../environments/environment.prod";
@@ -27,6 +29,7 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
+    DirectivesModule,
     BrowserAnimationsModule,
     HttpClientModule,
     JwtModule.forRoot({
