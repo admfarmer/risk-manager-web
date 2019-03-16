@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h3 class="page-title">
+    บุคคลากรโรงพยาบาล
+  </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">บุคคลากรโรงพยาบาล</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row" *ngIf="userType === 'ADMIN'">
+          <div class="col-md-12">
+            <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+              <i class="mdi mdi-plus"></i>
+              เพิ่มบุคคลากร
+            </button>
+          </div>
+        </div>
+        ค้นหา :
+        <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+        <p></p>
+        <table class="table table-striped" [mfData]="personItems" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <tr>
+              <!-- <th>รหัสบัตร</th> -->
+              <th>ชื่อ - สกุล</th>
+              <th>ตำแหน่ง</th>
+              <th>กลุ่มงาน</th>
+              <th>Tell</th>
+              <th>Email</th>
+              <th>วันที่บรรจุ</th>
+              <th style="width: 50px;">#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngIf="!userItems.length">
+              <td colspan="5">ไม่พบรายการ</td>
+            </tr> -->
+            <tr *ngFor="let item of mf.data | grdFilter: {idcard: searchText, first_name:searchText,  last_name: searchText,  pos_name: searchText,  name_depart: searchText}">
+              <!-- <td>{{item.idcard}}</td> -->
+              <td>{{item.title}}{{item.first_name}} {{item.last_name}}</td>
+              <td>{{item.pos_name}}</td>
+              <td>{{item.name_depart}}</td>
+              <td>{{item.telephone}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.workdate | date: "yyyy-MM-dd"}}</td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                    <i class="mdi mdi-pencil"></i> แก้ไข
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-add-user #mdlUser (onSave)="onSave($event)"></app-modal-add-user>

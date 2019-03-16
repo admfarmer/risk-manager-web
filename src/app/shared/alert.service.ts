@@ -16,7 +16,7 @@ export class AlertService {
       type: 'error',
       confirmButtonText: 'ตกลง'
     };
-    swal(option);
+    swal.fire(option);
 
   }
 
@@ -29,7 +29,7 @@ export class AlertService {
       type: 'success',
       confirmButtonText: 'ตกลง'
     };
-    swal(option)
+    swal.fire(option)
       .then(
         function () { },
         // handling the promise rejection
@@ -47,7 +47,7 @@ export class AlertService {
       type: 'error',
       confirmButtonText: 'ตกลง'
     };
-    swal(option);
+    swal.fire(option);
 
   }
 
@@ -62,6 +62,6 @@ export class AlertService {
       confirmButtonText: 'ใช่, ดำเนินการ!',
       cancelButtonText: 'ยกเลิก'
     };
-    return swal(option);
+    return swal.fire(option);
   }
 }

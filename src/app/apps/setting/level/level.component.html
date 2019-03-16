@@ -1,0 +1,72 @@
+<div class="page-header">
+  <h3 class="page-title">
+    ระดับความรุ่นแรง
+  </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">ระดับความรุ่นแรง</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row" *ngIf="userType === 'ADMIN'">
+          <div class="col-md-12">
+            <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+              <i class="mdi mdi-plus"></i>
+              เพิ่มระดับความรุ่นแรง
+            </button>
+          </div>
+        </div>
+        ค้นหา :
+        <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+        <p></p>
+        <table class="table table-striped" [mfData]="levelItems" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <tr>
+              <th style="width: 150px;">รหัสความรุ่นแรง</th>
+              <th>รายละเดียด</th>
+              <th style="width: 150px;">ด้านความรุ่นแรง</th>
+              <th style="width: 50px;">#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngIf="!userItems.length">
+              <td colspan="5">ไม่พบรายการ</td>
+            </tr> -->
+            <tr
+              *ngFor="let item of mf.data | grdFilter: {code_level: searchText, name_level:searchText,  group_level: searchText}">
+              <td>{{item.code_level}}</td>
+              <td>{{item.name_level}}</td>
+              <td>
+                <span *ngIf="item.group_level === '1'">ระดับด้านคลินิก</span>
+                <span *ngIf="item.group_level === '2'">ระดับด้านทั่วไป</span>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                    <i class="mdi mdi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="remove(item.id_level)">
+                    <i class="mdi mdi-pencil"></i> Del
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-add-level #mdlLevel (onSave)="onSave($event)"></app-modal-add-level>

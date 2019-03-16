@@ -1,0 +1,44 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-level-title">ระดับความรุ่นแรง</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="codeLevel" class="required">รหัสความรุ่นแรง</label>
+          <select class="form-control" name="codeLevel" [(ngModel)]="codeLevel">
+            <option *ngFor="let item of code" [value]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="nameLevel" class="required">ชื่อความรุ่นแรง</label>
+          <!-- <input type="text" name="nameLevel" id="nameLevel" class="form-control" name="nameLevel" [(ngModel)]="nameLevel"> -->
+          <textarea class="form-control" [(ngModel)]="nameLevel" name="nameLevel" id="nameLevel" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="groupLevel" class="required">ด้านความรุ่นแรง</label>
+          <select class="form-control" name="groupLevel" [(ngModel)]="groupLevel">
+            <option value="1">ระดับด้านคลินิก</option>
+            <option value="2">ระดับด้านทั่วไป</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!-- <input type="hidden" name="userId" id="userId" name="userId" [(ngModel)]="userId"> -->
+    <button type="button" class="btn btn-primary" (click)="save()">บันทึก</button>
+    <button type="button" class="btn btn-outline-danger" (click)="dismiss()">ยกเลิก</button>
+  </div>
+</ng-template>

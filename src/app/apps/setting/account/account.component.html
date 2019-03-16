@@ -1,0 +1,69 @@
+<div class="page-header">
+  <h3 class="page-title">
+    บัญชีอุบัติการณ์
+  </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">บัญชีอุบัติการณ์</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row" *ngIf="userType === 'ADMIN'">
+          <div class="col-md-12">
+            <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+              <i class="mdi mdi-plus"></i>
+              เพิ่มบัญชีอุบัติการณ์
+            </button>
+          </div>
+        </div>
+        ค้นหา :
+        <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+        <p></p>
+        <table class="table table-striped" [mfData]="accountItems" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <tr>
+              <th style="width: 100px;">รหัส</th>
+              <th>รายละเอียด</th>
+              <th style="width: 50px;">status</th>
+              <th style="width: 50px;">#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngIf="!userItems.length">
+              <td colspan="5">ไม่พบรายการ</td>
+            </tr> -->
+            <tr
+              *ngFor="let item of mf.data | grdFilter: {code_account: searchText, name_level:searchText,  group_level: searchText}">
+              <td>{{item.code_account}}</td>
+              <td>{{item.name_account}}</td>
+              <td>
+                <i class="mdi mdi-check text-success" *ngIf="item.status_acc === '0'"></i>
+                <i class="mdi mdi-close text-danger" *ngIf="item.status_acc === '1'"></i>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                    <i class="mdi mdi-pencil"></i> แก้ไข
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-add-account #mdlAccount (onSave)="onSave($event)"></app-modal-add-account>

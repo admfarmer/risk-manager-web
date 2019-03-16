@@ -5,13 +5,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styles: []
 })
 export class LayoutComponent implements OnInit {
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   collapsed: boolean = true;
   fullname: any;
+  userType: any;
 
   constructor(
     private router: Router
@@ -19,6 +20,8 @@ export class LayoutComponent implements OnInit {
     const token = sessionStorage.getItem('token');
     const decoded: any = this.jwtHelper.decodeToken(token);
     this.fullname = decoded.fullname;
+    this.userType = decoded.userType;
+
   }
 
   ngOnInit() {
@@ -26,7 +29,17 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
+
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('idcard');
+    sessionStorage.removeItem('departID');
+    sessionStorage.removeItem('departGRP');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('fullname');
+    sessionStorage.removeItem('userType');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('codeGRP');
+
     this.router.navigate(['/login']);
   }
 

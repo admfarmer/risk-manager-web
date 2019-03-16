@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { LoadingModalComponent } from './loading-modal/loading-modal.component';
-import { LeavesService } from '../shared/leave.services';
+import { PersonService } from '../shared/person.services';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { LeavesService } from '../shared/leave.services';
     LoadingModalComponent
   ],
   providers: [
-    LeavesService
+    PersonService
   ]
 })
 export class DirectivesModule { }

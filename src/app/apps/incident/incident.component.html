@@ -1,0 +1,298 @@
+<div class="page-header">
+  <h3 class="page-title">
+    อุบัติการณ์ความเสี่ยง
+  </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">อุบัติการณ์ความเสี่ยง</li>
+    </ol>
+  </nav>
+</div>
+
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <span class="h3">อุบัตการณ์รออนุมัติ
+        <label class="badge badge-danger">
+          <span class="h3 font-weight-bold">{{approveNotItems.length || 0}}</span>
+        </label>
+      </span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">รายการอุบัตการณ์รออนุมัติ</h3>
+          <div class="row" *ngIf="userType === 'ADMIN'">
+            <div class="col-md-12">
+              <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+                <i class="mdi mdi-plus"></i>
+                เขียนอุบัติการณ์
+              </button>
+            </div>
+          </div>
+          ค้นหา :
+          <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+          <p></p>
+          <table class="table table-striped" [mfData]="approveNotItems" #mf="mfDataTable">
+            <thead>
+              <tr>
+                <!-- <th>รหัสบัตร</th> -->
+                <th style="width: 120px;">
+                  <mfDefaultSorter by="code_account">รหัสอุบัติการณ์</mfDefaultSorter>
+                </th>
+                <th style="width: 120px;">
+                  <mfDefaultSorter by="date_account">พบอุบัติการณ์</mfDefaultSorter>
+                </th>
+                <th style="width: 200px;">
+                  <mfDefaultSorter by="time_name">ช่วงเวลา</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="agents_involved">รายละเอียดอุบัติการณ</mfDefaultSorter>
+                </th>
+                <th style="width: 50px;">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!mf.data.length">
+                <td colspan="5">ไม่พบรายการ</td>
+              </tr>
+              <tr
+                *ngFor="let item of mf.data | grdFilter: {depart: searchText,code_account: searchText, date_account: searchText, agents_involved: searchText} | paginate: { itemsPerPage: 5, currentPage: p }">
+                <!-- <td>{{item.idcard}}</td> -->
+                <td>{{item.code_account}}</td>
+                <td>{{item.date_account | date: "dd-MM-yyyy"}}</td>
+                <td>{{item.time_name}}</td>
+                <td>{{item.agents_involved}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                      <i class="mdi mdi-pencil"></i> รายละเอียด
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  <!-- <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator> -->
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <span class="h3">อุบัตการณ์ได้อนุมัติแล้ว
+        <label class="badge badge-danger">
+          <span class="h3 font-weight-bold">{{approveItems.length || 0}}</span>
+        </label>
+      </span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">รายการอุบัตการณ์ได้อนุมัติแล้ว</h3>
+          <div class="row" *ngIf="userType === 'ADMIN'">
+            <div class="col-md-12">
+              <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+                <i class="mdi mdi-plus"></i>
+                เขียนอุบัติการณ์
+              </button>
+            </div>
+          </div>
+          ค้นหา :
+          <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+          <p></p>
+          <table class="table table-striped" [mfData]="approveItems" #mf="mfDataTable">
+            <thead>
+              <tr>
+                <!-- <th>รหัสบัตร</th> -->
+                <th style="width: 120px;">รหัสอุบัติการณ์</th>
+                <th style="width: 120px;">พบอุบัติการณ์</th>
+                <th style="width: 200px;">ช่วงเวลา</th>
+                <th>รายละเอียดอุบัติการณ</th>
+                <th style="width: 50px;">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!mf.data.length">
+                <td colspan="5">ไม่พบรายการ</td>
+              </tr>
+              <tr
+                *ngFor="let item of mf.data | grdFilter: {depart: searchText,code_account: searchText, date_account:searchText,  agents_involved: searchText} | paginate: { itemsPerPage: 5, currentPage: p }">
+                <!-- <td>{{item.idcard}}</td> -->
+                <td>{{item.code_account}}</td>
+                <td>{{item.date_account | date: "dd-MM-yyyy"}}</td>
+                <td>{{item.time_name}}</td>
+                <td>{{item.agents_involved}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                      <i class="mdi mdi-pencil"></i> รายละเอียด
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  <!-- <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator> -->
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <span class="h3">อุบัตการณ์รอการวิเคราะห์
+        <label class="badge badge-danger">
+          <span class="h3 font-weight-bold">{{closeNotItems.length || 0}}</span>
+        </label>
+      </span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">รายการอุบัตการณ์รอการวิเคราะห์</h3>
+          <div class="row" *ngIf="userType === 'ADMIN'">
+            <div class="col-md-12">
+              <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+                <i class="mdi mdi-plus"></i>
+                เขียนอุบัติการณ์
+              </button>
+            </div>
+          </div>
+          ค้นหา :
+          <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+          <p></p>
+          <table class="table table-striped" [mfData]="closeNotItems" #mf="mfDataTable">
+            <thead>
+              <tr>
+                <!-- <th>รหัสบัตร</th> -->
+                <th style="width: 120px;">รหัสอุบัติการณ์</th>
+                <th style="width: 120px;">พบอุบัติการณ์</th>
+                <th style="width: 200px;">ช่วงเวลา</th>
+                <th>รายละเอียดอุบัติการณ</th>
+                <th style="width: 50px;">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!mf.data.length">
+                <td colspan="5">ไม่พบรายการ</td>
+              </tr>
+              <tr
+                *ngFor="let item of mf.data | grdFilter: {code_account: searchText, date_account:searchText,  agents_involved: searchText} | paginate: { itemsPerPage: 5, currentPage: p }">
+                <!-- <td>{{item.idcard}}</td> -->
+                <td>{{item.code_account}}</td>
+                <td>{{item.date_account | date: "dd-MM-yyyy"}}</td>
+                <td>{{item.time_name}}</td>
+                <td>{{item.agents_involved}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                      <i class="mdi mdi-pencil"></i> รายละเอียด
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  <!-- <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator> -->
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <span class="h3">อุบัตการณ์ถูกปิดแล้ว
+        <label class="badge badge-danger">
+          <span class="h3 font-weight-bold">{{closeItems.length || 0}}</span>
+        </label>
+      </span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">รายการอุบัตการณ์ถูกปิดแล้ว</h3>
+          <div class="row" *ngIf="userType === 'ADMIN'">
+            <div class="col-md-12">
+              <button (click)="openRegister()" class="float-right btn-lg btn btn-sm btn-gradient-success">
+                <i class="mdi mdi-plus"></i>
+                เขียนอุบัติการณ์
+              </button>
+            </div>
+          </div>
+          ค้นหา :
+          <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+          <p></p>
+          <table class="table table-striped" [mfData]="closeItems" #mf="mfDataTable">
+            <thead>
+              <tr>
+                <!-- <th>รหัสบัตร</th> -->
+                <th style="width: 120px;">
+                  <mfDefaultSorter by="code_account">รหัสอุบัติการณ์</mfDefaultSorter>
+                </th>
+                <th style="width: 120px;">
+                  <mfDefaultSorter by="date_account">พบอุบัติการณ์</mfDefaultSorter>
+                </th>
+                <th style="width: 200px;">
+                  <mfDefaultSorter by="time_name">ช่วงเวลา</mfDefaultSorter>
+                </th>
+                <th>รายละเอียดอุบัติการณ</th>
+                <th style="width: 50px;">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!mf.data.length">
+                <td colspan="5">ไม่พบรายการ</td>
+              </tr>
+              <tr
+                *ngFor="let item of mf.data | grdFilter: {code_account: searchText, date_account:searchText,  agents_involved: searchText} | paginate: { itemsPerPage: 5, currentPage: p }">
+                <!-- <td>{{item.idcard}}</td> -->
+                <td>{{item.code_account}}</td>
+                <td>{{item.date_account | date: "dd-MM-yyyy"}}</td>
+                <td>{{item.time_name}}</td>
+                <td>{{item.agents_involved}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-icon-append btn-gradient-success" (click)="openEdit(item)">
+                      <i class="mdi mdi-pencil"></i> รายละเอียด
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  <!-- <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator> -->
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

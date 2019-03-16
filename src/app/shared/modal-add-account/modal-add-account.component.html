@@ -1,0 +1,88 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-account-title">บัญชีอุบัติการณ์</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="codeAccount" class="required">รหัสบัญชีอุบัติการณ์</label>
+          <input type="text" name="codeAccount" id="codeAccount" class="form-control" [(ngModel)]="codeAccount">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="nameAccount" class="required">รายละเอียดบัญชีอุบัติการณ์</label>
+          <textarea class="form-control" [(ngModel)]="nameAccount" name="nameAccount" id="nameAccount"
+            rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="simple" class="required">รหัส simple</label>
+          <input type="text" name="simple" id="simple" class="form-control" [(ngModel)]="simple">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="idSide" class="required">กลุ่มอุบัติการ</label>
+          <select class="form-control" name="idSide" [(ngModel)]="idSide" (click)="getSafety(idSide)">
+            <option *ngFor="let item of sideItems" [value]="item.id_side">
+              {{item.code_side}}:{{item.name_side}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="idSafety" class="required">หมวดอุบัติการณ์</label>
+          <select class="form-control" name="idSafety" [(ngModel)]="idSafety" (click)="getType(idSafety)">
+            <option *ngFor="let item of safetyItems" [value]="item.id_safety">{{item.code_safety}}:{{item.name_safety}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="idType" class="required">ประเภทอุบัติการ</label>
+          <select class="form-control" name="idType" [(ngModel)]="idType" (click)="getNotype(idType)">
+            <option *ngFor="let item of typeItems" [value]="item.id_type">{{item.code_type}}:{{item.name_type}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="idNotype" class="required">ประเภทย่อยอุบัติการณ์</label>
+          <select class="form-control" name="idNotype" [(ngModel)]="idNotype">
+            <option *ngFor="let item of notypeItems" [value]="item.id_notype">{{item.code_notype}}:{{item.name_notype}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="statusAcc" class="required">สถานะ</label>
+          <select class="form-control" name="statusAcc" [(ngModel)]="statusAcc">
+            <option value="0">เปิดใช้งาน</option>
+            <option value="1">ปิดใช้งาน</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!-- <input type="hidden" name="userId" id="userId" name="userId" [(ngModel)]="userId"> -->
+    <button type="button" class="btn btn-primary" (click)="save()">บันทึก</button>
+    <button type="button" class="btn btn-outline-danger" (click)="dismiss()">ยกเลิก</button>
+  </div>
+</ng-template>
