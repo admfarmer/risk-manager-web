@@ -42,12 +42,12 @@ export class CustomerComponent implements OnInit {
 
   openRegister() {
     this.personId = null;
-    // this.mdlPersons.open();
+    this.mdlPersons.open();
   }
 
   openEdit(item: any) {
-    // console.log(item);
-    // this.mdlPersons.open(item);
+    console.log(item);
+    this.mdlPersons.open(item);
   }
   onSave(event: any) {
     this.alertService.success();

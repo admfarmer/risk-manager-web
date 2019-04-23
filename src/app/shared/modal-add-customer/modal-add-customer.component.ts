@@ -16,17 +16,41 @@ export class ModalAddCustomerComponent implements OnInit {
 
   modalReference: NgbModalRef;
   users: any = [];
-  person: any = [];
+  persons: any = [];
+  titles: any = [];
+  sexs: any = [];
+  positions: any = [];
+  departs: any = [];
   info: any = {};
 
   userType: any;
   userId: any;
-  idcard: any;
+  // idcard: any;
   username: any;
   password: any;
   isAccept: any;
   chiefUser: any;
   managerUser: any;
+
+  id_person: any;
+  idcard: any;
+  title: any;
+  first_name: any;
+  last_name: any;
+  title_en: any;
+  fname_en: any;
+  lname_en: any;
+  sex: any;
+  position: any;
+  addr: any;
+  bdate: any;
+  workdate: any;
+  depart: any;
+  typetext: any;
+  personla: any;
+  telephone: any;
+  email: any;
+  quality: any;
 
   constructor(
     private modalService: NgbModal,
@@ -36,6 +60,7 @@ export class ModalAddCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getShowAll();
   }
 
   open(info: any = null) {
@@ -48,21 +73,47 @@ export class ModalAddCustomerComponent implements OnInit {
     });
 
     if (info) {
-      this.password = null;
-      this.userId = info.id_user;
+      this.id_person = info.id_person;
       this.idcard = info.idcard;
-      this.username = info.username;
-      this.userType = info.user_type;
-      this.isAccept = info.is_accept || 'N';
-      this.chiefUser = info.chief_user || '';
-      this.managerUser = info.maniger_user || '';
+      this.title = info.title;
+      this.first_name = info.first_name;
+      this.last_name = info.last_name;
+      this.title_en = info.title_en;
+      this.fname_en = info.fname_en;
+      this.lname_en = info.lname_en;
+      this.sex = info.sex;
+      this.position = info.position;
+      this.addr = info.addr;
+      this.bdate = info.bdate;
+      this.workdate = info.workdate;
+      this.depart = info.depart;
+      this.typetext = info.typetext;
+      this.personla = info.personla || 'N';
+      this.telephone = info.telephone;
+      this.email = info.email;
+      this.quality = info.quality || 'N';
       this.getPersons();
 
     } else {
-      this.userId = null;
+      this.id_person = null;
       this.idcard = null;
-      this.username = null;
-      this.password = null;
+      this.title = null;
+      this.first_name = null;
+      this.last_name = null;
+      this.title_en = null;
+      this.fname_en = null;
+      this.lname_en = null;
+      this.sex = null;
+      this.position = null;
+      this.addr = null;
+      this.bdate = null;
+      this.workdate = null;
+      this.depart = null;
+      this.typetext = null;
+      this.personla = null;
+      this.telephone = null;
+      this.email = null;
+      this.quality = null;
       this.getPersons();
     }
 
@@ -72,82 +123,107 @@ export class ModalAddCustomerComponent implements OnInit {
 
   dismiss() {
     this.modalReference.close();
-    this.password = null;
+    this.id_person = null;
     this.idcard = null;
-    this.userId = null;
-    this.username = null;
-    this.isAccept = null || 'N';
-    this.chiefUser = null || '';
-    this.managerUser = null || '';
-
+    this.title = null;
+    this.first_name = null;
+    this.last_name = null;
+    this.title_en = null;
+    this.fname_en = null;
+    this.lname_en = null;
+    this.sex = null;
+    this.position = null;
+    this.addr = null;
+    this.bdate = null;
+    this.workdate = null;
+    this.depart = null;
+    this.typetext = null;
+    this.personla = null;
+    this.telephone = null;
+    this.email = null;
+    this.quality = null;
   }
 
   async save() {
-    if (this.username) {
+    if (this.idcard) {
       try {
         const data: any = {
-          username: this.username,
+          // id_person: this.id_person,
           idcard: this.idcard,
-          userType: this.userType,
-          isAccept: this.isAccept || 'N',
-          chiefUser: this.chiefUser || '',
-          managerUser: this.managerUser || ''
+          title: this.title,
+          first_name: this.first_name,
+          last_name: this.last_name,
+          title_en: this.title_en,
+          fname_en: this.fname_en,
+          lname_en: this.lname_en,
+          sex: this.sex,
+          position: this.position,
+          addr: this.addr,
+          bdate: this.bdate,
+          workdate: this.workdate,
+          depart: this.depart,
+          typetext: this.typetext,
+          personla: this.personla,
+          telephone: this.telephone,
+          email: this.email,
+          quality: this.quality
         };
 
-        var isError = false;
-        if (this.userId) {
-          if (!this.password) {
-            isError = true;
-          } else {
-            isError = false;
-            data.password = this.password;
-          }
-        } else {
-          if (!this.password) {
-            isError = true;
-          } else {
-            isError = false;
-          }
-        }
-
-        data.password = this.password;
-
-        var rs: any;
-        if (!isError) {
-          if (this.userId) {
-            rs = await this.usernameService.update(this.userId, data);
-          } else {
-
-            console.log(data);
-
-            rs = await this.usernameService.save(data);
-
-          }
+        let isError = false;
+        let rs: any;
+        if (!this.id_person) {
+          // console.log(data);
+          rs = await this.usernameService.save(data);
 
           if (rs.statusCode === 200) {
             this.modalReference.close();
             this.onSave.emit();
-            this.password = null;
+            this.id_person = null;
             this.idcard = null;
-            this.userId = null;
-            this.username = null;
-            this.isAccept = null || 'N';
-            this.chiefUser = null || '';
-            this.managerUser = null || '';
+            this.title = null;
+            this.first_name = null;
+            this.last_name = null;
+            this.title_en = null;
+            this.fname_en = null;
+            this.lname_en = null;
+            this.sex = null;
+            this.position = null;
+            this.addr = null;
+            this.bdate = null;
+            this.workdate = null;
+            this.depart = null;
+            this.typetext = null;
+            this.personla = null;
+            this.telephone = null;
+            this.email = null;
+            this.quality = null;
           } else {
             this.alertService.error(rs.message);
           }
         } else {
-          rs = await this.usernameService.update(this.userId, data);
+          rs = await this.usernameService.update(this.id_person, data);
           if (rs.statusCode === 200) {
             this.modalReference.close();
             this.onSave.emit();
-            this.password = null;
+            this.id_person = null;
             this.idcard = null;
-            this.userId = null;
-            this.username = null;
-            this.chiefUser = null || '';
-            this.managerUser = null || '';
+            this.title = null;
+            this.first_name = null;
+            this.last_name = null;
+            this.title_en = null;
+            this.fname_en = null;
+            this.lname_en = null;
+            this.sex = null;
+            this.position = null;
+            this.addr = null;
+            this.bdate = null;
+            this.workdate = null;
+            this.depart = null;
+            this.typetext = null;
+            this.personla = null;
+            this.telephone = null;
+            this.email = null;
+            this.quality = null;
           } else {
             this.alertService.error(rs.message);
           }
@@ -168,7 +244,7 @@ export class ModalAddCustomerComponent implements OnInit {
       if (this.idcard) {
         const rs: any = await this.personService.getSelectcard(this.idcard);
         if (rs.results) {
-          this.person = rs.results;
+          this.persons = rs.results;
           // console.log(this.person);
         } else {
           this.alertService.error(rs.error);
@@ -176,7 +252,7 @@ export class ModalAddCustomerComponent implements OnInit {
       } else {
         const rs: any = await this.personService.getSelectjoin();
         if (rs.results) {
-          this.person = rs.results;
+          this.persons = rs.results;
           // console.log(this.person);
         } else {
           this.alertService.error(rs.error);
@@ -189,5 +265,70 @@ export class ModalAddCustomerComponent implements OnInit {
     }
   }
 
+  async getTitles() {
+    try {
+      const rs: any = await this.personService.Title();
+      if (rs.results) {
+        this.titles = rs.results;
+        // console.log(this.titles);
+      } else {
+        this.alertService.error(rs.error);
+      }
+    } catch (error) {
+      // console.log(error);
+      this.alertService.error(error);
+    }
+  }
 
+  async getSexs() {
+    try {
+      const rs: any = await this.personService.Sex();
+      if (rs.results) {
+        this.sexs = rs.results;
+        // console.log(this.sexs);
+      } else {
+        this.alertService.error(rs.error);
+      }
+    } catch (error) {
+      // console.log(error);
+      this.alertService.error(error);
+    }
+  }
+
+  async getPositions() {
+    try {
+      const rs: any = await this.personService.Position();
+      if (rs.results) {
+        this.positions = rs.results;
+        // console.log(this.positions);
+      } else {
+        this.alertService.error(rs.error);
+      }
+    } catch (error) {
+      // console.log(error);
+      this.alertService.error(error);
+    }
+  }
+
+  async getDeparts() {
+    try {
+      const rs: any = await this.personService.Depart();
+      if (rs.results) {
+        this.departs = rs.results;
+        // console.log(this.departs);
+      } else {
+        this.alertService.error(rs.error);
+      }
+    } catch (error) {
+      // console.log(error);
+      this.alertService.error(error);
+    }
+  }
+
+  async getShowAll() {
+    this.getTitles();
+    this.getSexs();
+    this.getPositions();
+    this.getDeparts();
+  }
 }

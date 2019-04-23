@@ -89,17 +89,21 @@ export class PersonService {
     }
 
     async Depart() {
-        const _url = `${this.apiUrl}/depart`;
+        const _url = `${this.apiUrl}/departs`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 
     async Position() {
-        const _url = `${this.apiUrl}/position`;
+        const _url = `${this.apiUrl}/positions`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 
-    async Gender() {
-        const _url = `${this.apiUrl}/gender`;
+    async Sex() {
+        const _url = `${this.apiUrl}/sexs`;
+        return this.httpClient.get(_url, this.httpOptions).toPromise();
+    }
+    async Title() {
+        const _url = `${this.apiUrl}/titles`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 

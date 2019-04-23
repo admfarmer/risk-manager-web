@@ -40,7 +40,8 @@
             <!-- <tr *ngIf="!userItems.length">
               <td colspan="5">ไม่พบรายการ</td>
             </tr> -->
-            <tr *ngFor="let item of mf.data | grdFilter: {idcard: searchText, first_name:searchText,  last_name: searchText,  pos_name: searchText,  name_depart: searchText}">
+            <tr
+              *ngFor="let item of mf.data | grdFilter: {idcard: searchText, first_name:searchText,  last_name: searchText,  pos_name: searchText,  name_depart: searchText}">
               <!-- <td>{{item.idcard}}</td> -->
               <td>{{item.title}}{{item.first_name}} {{item.last_name}}</td>
               <td>{{item.pos_name}}</td>
@@ -70,4 +71,4 @@
   </div>
 </div>
 
-<app-modal-add-user #mdlUser (onSave)="onSave($event)"></app-modal-add-user>
+<app-modal-add-customer #mdlPerson (onSave)="onSave($event)"> </app-modal-add-customer>

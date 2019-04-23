@@ -1,3 +1,97 @@
-<p>
-  modal-add-customer works!
-</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">บุคคลากร</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="idcard" class="required">รหัสบัตรประชาชน</label>
+          <input type="text" name="idcard" id="idcard" class="form-control" [(ngModel)]="idcard">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="title" class="required">คำนำหน้าชื่อ</label>
+          <select class="form-control" name="title" [(ngModel)]="title">
+            <option *ngFor="let t of titles" [value]="t.title_name_th">{{t.title_name_th}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="first_name" class="required">ชื่อ</label>
+          <input type="text" name="first_name" id="first_name" class="form-control" [(ngModel)]="first_name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="last_name" class="required">สกุล</label>
+          <input type="text" name="last_name" id="last_name" class="form-control" [(ngModel)]="last_name">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="title_en" class="required">title</label>
+          <select class="form-control" name="title_en" [(ngModel)]="title_en">
+            <option *ngFor="let t of titles" [value]="t.title_name_en">{{t.title_name_en}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="fname_en" class="required">name</label>
+          <input type="text" name="fname_en" id="fname_en" class="form-control" [(ngModel)]="fname_en">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="lname_en" class="required">last</label>
+          <input type="text" name="lname_en" id="lname_en" class="form-control" [(ngModel)]="lname_en">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="sex" class="required">เพศ</label>
+          <select class="form-control" name="sex" [(ngModel)]="sex">
+            <option *ngFor="let s of sexs" [value]="s.sex_id">{{s.sex_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label for="position" class="required">ตำแหน่ง</label>
+          <select class="form-control" name="position" [(ngModel)]="position">
+            <option *ngFor="let p of positions" [value]="p.id_pos">{{p.pos_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="addr" class="required">ที่อยู่</label>
+          <input type="text" name="addr" id="addr" class="form-control" [(ngModel)]="addr">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="bdate" class="required">วันเกิด</label>
+          <input type="date" name="bdate" id="bdate" class="form-control" [(ngModel)]="bdate">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="workdate" class="required">วันเข้าทำงาน</label>
+          <input type="date" name="workdate" id="workdate" class="form-control" [(ngModel)]="workdate">
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!-- <input type="hidden" name="userId" id="userId" name="userId" [(ngModel)]="userId"> -->
+    <button type="button" class="btn btn-primary" (click)="save()">บันทึก</button>
+    <button type="button" class="btn btn-outline-danger" (click)="dismiss()">ยกเลิก</button>
+  </div>
+</ng-template>
