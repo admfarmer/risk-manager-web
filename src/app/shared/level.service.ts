@@ -22,7 +22,7 @@ export class LevelService {
     }
 
     async getSelect(id_side: any) {
-        const _url = `${this.apiUrl}/levels/${id_side}`;
+        const _url = `${this.apiUrl}/levels/select/${id_side}`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 

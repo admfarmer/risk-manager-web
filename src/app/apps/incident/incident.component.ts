@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/shared/alert.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IncidentService } from 'src/app/shared/incident.service'
+import { ModalAddIncidentComponent } from 'src/app/shared/modal-add-incident/modal-add-incident.component';
 
 @Component({
   selector: 'app-incident',
@@ -9,6 +10,8 @@ import { IncidentService } from 'src/app/shared/incident.service'
   styles: []
 })
 export class IncidentComponent implements OnInit {
+  @ViewChild('mdlIncident') private mdlIncident: ModalAddIncidentComponent;
+
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   openLoading: boolean;
@@ -53,12 +56,12 @@ export class IncidentComponent implements OnInit {
 
   openRegister() {
     this.personId = null;
-    // this.mdlPersons.open();
+    this.mdlIncident.open();
   }
 
   openEdit(item: any) {
     // console.log(item);
-    // this.mdlPersons.open(item);
+    this.mdlIncident.open(item);
   }
   onSave(event: any) {
 

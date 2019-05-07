@@ -22,12 +22,12 @@ export class AccountService {
     }
 
     async getSelectacc(code_account: any) {
-        const _url = `${this.apiUrl}/accounts/selectacc/${code_account}`;
+        const _url = `${this.apiUrl}/accounts/select/${code_account}`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 
     async getSelect(id_side: any, id_safety: any, id_type, id_notype: any) {
-        const _url = `${this.apiUrl}/accounts/${id_side}/${id_safety}/${id_type}/${id_notype}`;
+        const _url = `${this.apiUrl}/accounts/gitSelect/${id_side}/${id_safety}/${id_type}/${id_notype}`;
         return this.httpClient.get(_url, this.httpOptions).toPromise();
     }
 

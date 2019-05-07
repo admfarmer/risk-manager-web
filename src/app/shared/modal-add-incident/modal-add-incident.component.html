@@ -1,3 +1,222 @@
-<p>
-  modal-add-incident works!
-</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เขียนอุบัติการณ์ความเสี่ยง</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="hn_incident" class="required">รหัสผู้รับบริการ</label>
+          <input type="text" name="hn_incident" id="hn_incident" class="form-control" [(ngModel)]="hn_incident">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="idcard_incident" class="required">ผู้ประสบเหตุ</label>
+          <select class="form-control" name="idcard_incident" [(ngModel)]="idcard_incident">
+            <option *ngFor="let t of persons" [value]="t.idcard">{{t.title}}{{t.first_name}} {{t.last_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="dep_rep_id" class="required">หน่วยงานที่พบเหตุ</label>
+          <select class="form-control" name="dep_rep_id" [(ngModel)]="dep_rep_id">
+            <option *ngFor="let x of departs" [value]="x.id_depart">{{x.name_depart}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="dep_res_id" class="required">หน่วยงานรับรายงาน</label>
+          <select class="form-control" name="dep_res_id" [(ngModel)]="dep_res_id">
+            <option *ngFor="let x of departs" [value]="x.id_depart">{{x.name_depart}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="id_side" class="required">กลุ่มอุบัติการ</label>
+          <select class="form-control" name="id_side" [(ngModel)]="id_side" #idSide (input)="Safety(idSide)">
+            <option *ngFor="let x of sides" [value]="x.id_side">{{x.name_side}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="id_safety" class="required">หมวดอุบัติการณ์</label>
+          <select class="form-control" name="id_safety" [(ngModel)]="id_safety" #idSafety (input)="Types(idSafety)">
+            <option *ngFor="let x of safetys" [value]="x.id_safety">{{x.name_safety}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="id_type" class="required">ประเภทอุบัติการ</label>
+          <select class="form-control" name="id_type" [(ngModel)]="id_type" #idType (input)="NoTypes(idType)">
+            <option *ngFor="let x of types" [value]="x.id_type">{{x.name_type}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="id_notype" class="required">ประเภทย่อยอุบัติการณ์</label>
+          <select class="form-control" name="id_notype" [(ngModel)]="id_notype" #idNotype (input)="Showacc(idNotype)">
+            <option *ngFor="let x of notypes" [value]="x.id_notype">{{x.name_notype}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="code_account" class="required">บัญชีอุบัติการณ์</label>
+          <select class="form-control" name="code_account" [(ngModel)]="code_account">
+            <option *ngFor="let x of accounts" [value]="x.code_account">{{x.name_account}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="code_level" class="required">ระดับความรุ่นแรง</label>
+          <select class="form-control" name="code_level" [(ngModel)]="code_level">
+            <option *ngFor="let x of levels" [value]="x.code_level">{{x.name_level}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="affected_id" class="required">ผลกระทบ (ถ้ามี)</label>
+          <select class="form-control" name="affected_id" [(ngModel)]="affected_id" #affectedId (input)="Affected(affectedId)">
+            <option [value]=" ">ไม่มีผลกระทบ</option>
+            <option *ngFor="let x of affecteds" [value]="x.affected_id">{{x.affected_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" *ngIf="isSex">
+        <div class="form-group col-md-4">
+          <label for="sex_incident" class="required">เพศ</label>
+          <select class="form-control" name="sex_incident" [(ngModel)]="sex_incident">
+              <option [value]=" ">ไม่ระบุเพศ</option>
+              <option *ngFor="let s of sexs" [value]="s.sex_id">{{s.sex_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" *ngIf="isSex">
+        <div class="form-group col-md-4">
+          <label for="age_incident" class="required">อายุ</label>
+          <select class="form-control" name="age_incident" [(ngModel)]="age_incident">
+              <option [value]=" ">ไม่ระบุอายุ</option>
+              <option *ngFor="let s of ages" [value]="s">{{s}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label for="location_incident" class="required">สถานที่เกิดเหตุ</label>
+          <select class="form-control" name="location_incident" [(ngModel)]="location_incident">
+            <option *ngFor="let x of locations" [value]="x.location_id">{{x.location_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="date_incident" class="required">วันที่บันทึกความเสี่ยง</label>
+          <input type="date" name="date_incident" id="date_incident" class="form-control" [(ngModel)]="date_incident">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="date_account" class="date_account">วันที่พบเหตุการณ์ความเสี่ยง</label>
+          <input type="date" name="date_account" id="date_account" class="form-control" [(ngModel)]="date_account">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="time_incident" class="required">เวลาที่พบเหตุการณ์</label>
+          <select class="form-control" name="time_incident" [(ngModel)]="time_incident">
+            <option *ngFor="let x of times" [value]="x.time_id">{{x.time_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="agents_involved" class="required">รายละเอียดอุบัติการณ์</label>
+          <textarea class="form-control" name="agents_involved" [(ngModel)]="agents_involved" id="agents_involved" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="other_involved" class="required">ผลลัพธ์ทางสังคม (ถ้ามี)</label>
+          <textarea class="form-control" name="other_involved" [(ngModel)]="other_involved" id="other_involved" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="noteceo" class="required">วิเคราะห์แก้ไขอุบัติการณ์</label>
+          <textarea class="form-control" name="noteceo" [(ngModel)]="noteceo" id="noteceo" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="resulting_actions" class="required">มีการปรับปรุ่ง/พัฒนา (ถ้ามี)</label>
+          <textarea class="form-control" name="resulting_actions" [(ngModel)]="resulting_actions" id="resulting_actions" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="date_rep" class="date_rep">วันที่วิเคราะหฺอุบัติการณ์</label>
+          <input type="date" name="date_rep" id="date_rep" class="form-control" [(ngModel)]="date_rep">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="date_res" class="date_res">วันที่ปิดอุบัติการณ์</label>
+          <input type="date" name="date_res" id="date_res" class="form-control" [(ngModel)]="date_res">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-check col-md-6">
+          <input type="checkbox" class="form-check-input" id="conf_output" name="conf_output" [(ngModel)]="conf_output">
+          <label for="conf_output" class="form-check-label">ปิดความเสียง</label>      
+        </div>
+        <div class="form-group form-check col-md-6">
+          <input type="checkbox" class="form-check-input" id="conf_chief" name="conf_chief" [(ngModel)]="conf_chief">
+          <label for="conf_chief" class="form-check-label">อนุมัติความเสียง</label>      
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-check col-md-12">
+          <input type="checkbox" class="form-check-input" id="conf_nrls" name="conf_nrls" [(ngModel)]="conf_nrls">
+          <label for="conf_nrls" class="form-check-label">ส่งรายงาน สรพ.</label>      
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-check col-md-12">
+          <input type="checkbox" class="form-check-input" id="near_miss_status" name="near_miss_status" [(ngModel)]="near_miss_status">
+          <label for="near_miss_status" class="form-check-label">อุบัติการณ์ที่เกิดขึ้นแล้ว</label>      
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!-- <input type="hidden" name="userId" id="userId" name="userId" [(ngModel)]="userId"> -->
+    <button type="button" class="btn btn-primary" (click)="save()">บันทึก</button>
+    <button type="button" class="btn btn-outline-danger" (click)="dismiss()">ยกเลิก</button>
+  </div>
+</ng-template>

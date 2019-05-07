@@ -16,6 +16,22 @@ export class IncidentService {
     };
   }
 
+
+  async Time() {
+    const _url = `${this.apiUrl}/incidents/listTime`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
+  async Location() {
+    const _url = `${this.apiUrl}/incidents/listLocation`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
+  async Affected() {
+    const _url = `${this.apiUrl}/incidents/listAffected`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
   async getNotApprove() {
     const _url = `${this.apiUrl}/incidents/listNotChief`;
     return this.httpClient.get(_url, this.httpOptions).toPromise();
@@ -75,139 +91,21 @@ export class IncidentService {
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
-  async addIncident(
-    id_incident: any,
-    hn_incident: any,
-    idcard_incident: any,
-    dep_rep_id: any,
-    dep_res_id: any,
-    id_side: any,
-    id_safety: any,
-    id_type: any,
-    id_notype: any,
-    code_account: any,
-    affected_id: any,
-    sex_incident: any,
-    age_incident: any,
-    location_incident: any,
-    date_incident: any,
-    date_account: any,
-    time_incident: any,
-    agents_involved: any,
-    code_level: any,
-    other_involved: any,
-    noteceo: any,
-    date_rep: any,
-    date_res: any,
-    resulting_actions: any,
-    conf_output: any,
-    conf_chief: any,
-    conf_nrls: any,
-    near_miss_status: any
-
-  ) {
+  async save(data: object) {
     const _url = `${this.apiUrl}/incidents`;
-    return this.httpClient.post(_url, {
-      hn_incident: hn_incident,
-      idcard_incident: idcard_incident,
-      dep_rep_id: dep_rep_id,
-      dep_res_id: dep_res_id,
-      id_side: id_side,
-      id_safety: id_safety,
-      id_type: id_type,
-      id_notype: id_notype,
-      code_account: code_account,
-      affected_id: affected_id,
-      sex_incident: sex_incident,
-      age_incident: age_incident,
-      location_incident: location_incident,
-      date_incident: date_incident,
-      date_account: date_account,
-      time_incident: time_incident,
-      agents_involved: agents_involved,
-      code_level: code_level,
-      other_involved: other_involved,
-      noteceo: noteceo,
-      date_rep: date_rep,
-      date_res: date_res,
-      resulting_actions: resulting_actions,
-      conf_output: conf_output,
-      conf_chief: conf_chief,
-      conf_nrls: conf_nrls,
-      near_miss_status: near_miss_status
-    }, this.httpOptions).toPromise();
+    return this.httpClient.post(_url, { data }, this.httpOptions).toPromise();
   }
 
-  async updateIncident(
-    id_incident: any,
-    hn_incident: any,
-    idcard_incident: any,
-    dep_rep_id: any,
-    dep_res_id: any,
-    id_side: any,
-    id_safety: any,
-    id_type: any,
-    id_notype: any,
-    code_account: any,
-    affected_id: any,
-    sex_incident: any,
-    age_incident: any,
-    location_incident: any,
-    date_incident: any,
-    date_account: any,
-    time_incident: any,
-    agents_involved: any,
-    code_level: any,
-    other_involved: any,
-    noteceo: any,
-    date_rep: any,
-    date_res: any,
-    resulting_actions: any,
-    conf_output: any,
-    conf_chief: any,
-    conf_nrls: any,
-    near_miss_status: any
-
-  ) {
-    const _url = `${this.apiUrl}/incidents`;
-    return this.httpClient.put(_url, {
-      id_incident: id_incident,
-      hn_incident: hn_incident,
-      idcard_incident: idcard_incident,
-      dep_rep_id: dep_rep_id,
-      dep_res_id: dep_res_id,
-      id_side: id_side,
-      id_safety: id_safety,
-      id_type: id_type,
-      id_notype: id_notype,
-      code_account: code_account,
-      affected_id: affected_id,
-      sex_incident: sex_incident,
-      age_incident: age_incident,
-      location_incident: location_incident,
-      date_incident: date_incident,
-      date_account: date_account,
-      time_incident: time_incident,
-      agents_involved: agents_involved,
-      code_level: code_level,
-      other_involved: other_involved,
-      noteceo: noteceo,
-      date_rep: date_rep,
-      date_res: date_res,
-      resulting_actions: resulting_actions,
-      conf_output: conf_output,
-      conf_chief: conf_chief,
-      conf_nrls: conf_nrls,
-      near_miss_status: near_miss_status
-    }, this.httpOptions).toPromise();
+  async update(id_incident: any, data: object) {
+    const _url = `${this.apiUrl}/incidents/${id_incident}`;
+    return this.httpClient.put(_url, { data }, this.httpOptions).toPromise();
   }
 
   async remove(id_incident: any) {
-    const _url = `${this.apiUrl}/incidents/del`;
-    return this.httpClient.post(_url, {
-      id_incident: id_incident
-    }, this.httpOptions).toPromise();
+    const _url = `${this.apiUrl}/incidents/${id_incident}`;
+    return this.httpClient.delete(_url, this.httpOptions).toPromise();
   }
+
 
   async sendBotLine(message: any) {
     const _url = `${this.apiUrl}/incidents/botline`;
